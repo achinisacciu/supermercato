@@ -5,7 +5,7 @@
 | 1 | Un produttore deve avere almeno una marca registrata |
 | 2 | Una marca non deve appartenere a più di un produttore |
 | 3 | Un prodotto deve essere associato a esattamente un produttore attraverso la marca |
-| 4 | Una marca non deve produrre prodotti di categorie diverse |
+| 4 | Un dipendente non può lavorare senza un titolo valido se richiesto dal suo ruolo |
 | 5 | Un produttore non deve avere marchi senza prodotti associati |
 | 6 | La categoria di un prodotto deve corrispondere esattamente alla categoria della sua marca |
 | 7 | Un nuovo marchio non deve essere creato senza specificare il produttore |
@@ -56,6 +56,6 @@
 | 52 | Ogni prodotto in un ordine deve avere un’offerta attiva del fornitore selezionato |
 | 53 | Ogni scaffale deve essere assegnato a un reparto |
 | 54 | Ogni prodotto deve essere collocato su uno scaffale solo se c'è spazio sufficiente in volume e peso |
-| 55 | Ogni prodotto identico all’altro non devo essere collocato su più scaffali diversi nello stesso reparto |
-| 56 | Un dipendente non può lavorare senza un titolo valido se richiesto dal suo ruolo |
-| 57 | Un mezzo deve avere marca e modello definiti per poter essere utilizzato |
+
+
+
