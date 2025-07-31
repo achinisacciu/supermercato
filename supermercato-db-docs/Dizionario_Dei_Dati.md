@@ -165,10 +165,12 @@ Questo documento fornisce una descrizione dettagliata di ogni tabella e attribut
 | `nome`          | VARCHAR(50)   | Nome del cliente.                                 | NOT NULL              | 'Laura'                      |
 | `cognome`       | VARCHAR(50)   | Cognome del cliente.                              | NOT NULL              | 'Bianchi'                    |
 | `data_nascita`  | DATE          | Data di nascita del cliente.                      |                       | '1985-11-22'                 |
+| `sesso`         | ENUM('M','F','Altro')  | classificazione del sesso del cliente    |                       | F                            |
+| `lavoro`        | VARCHAR(150)  | titolo lavorativo del cliente.                    |                       | Ingegniere                   |
 | `email`         | VARCHAR(100)  | Indirizzo email univoco del cliente.              | UNIQUE, NOT NULL      | 'laura.bianchi@email.com'    |
 | `telefono`      | VARCHAR(20)   | Numero di telefono del cliente.                   |                       | '3471122334'                 |
 | `residenza`     | VARCHAR(255)  | Indirizzo di residenza del cliente.               |                       | 'Via Verdi 5, 95100 Catania' |
-| `newsletter`    | BOOLEAN       | Flag che indica se il cliente è iscritto alla newsletter.| DEFAULT FALSE         | TRUE                         |
+| `newsletter`    | BOOLEAN       | Flag che indica se il cliente è iscritto alla newsletter.| DEFAULT FALSE  | TRUE                         |
 
 <br>
 
