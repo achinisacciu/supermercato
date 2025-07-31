@@ -17,6 +17,7 @@
 | clienti  | carte_fidelity  | 1:1  | 1 ⟶ 1       | Un cliente ha una sola carta fedeltà | No |
 | clienti  | scontrini       | 1:N  | 1 ⟶ N       | Un cliente può avere molti scontrini | No |
 | clienti  | preferenze      | N:M  | N ⟷ M       | Molti clienti possono condividere molte preferenze | clienti_preferenze |
+| clienti  | titoli      | N:M  | N ⟷ M       | Molti clienti possono conseguire più titoli | clienti_titoli |
 
 ### Dipendenti
 
