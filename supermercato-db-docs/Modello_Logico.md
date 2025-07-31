@@ -92,9 +92,3 @@ Questo documento contiene l'elenco completo delle tabelle da implementare nel da
 
 ---
 
-## Inventario e Magazzino
-
-### inventario (`id_inventario`, `id_prodotto`, `id_scaffale`, `id_reparto`, `id_edificio`, `quantita`, `data_ultimo_aggiornamento`)
-
----
-
