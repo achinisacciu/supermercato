@@ -23,18 +23,20 @@
 
 | Entità A   | Entità B | Tipo | Cardinalità | Chiave di Lettura | Tabella Associativa |
 | ---------- | -------- | ---- | ----------- | ----------------- | ------------------- |
-| dipendenti | ruoli    | 1:N  | 1 ⟶ N       | Un dipendente può avere più ruoli | No |
-| dipendenti | uffici   | 1:N  | 1 ⟶ N       | Un dipendente può lavorare in più uffici | No |
-| dipendenti | titoli   | N:M  | N ⟷ M       | Molti dipendenti possono avere molti titoli | dipendenti_titoli |
+| ruoli      | dipendenti |1:N | 1 ⟶ N      | Un ruolo può essere assegnato a più dipendenti | No |
+| dipendenti | ruoli    | N:1  | N ⟶ 1      | Molti dipendenti possono avere lo stesso ruolo | No |
+| dipendenti | uffici   | N:1  | N ⟶ 1      | Molti dipendenti possono lavorare in un ufficio | No |
+| uffici     | dipendenti   | 1:N  | 1 ⟶ N  | In un uffucio possono lavorare molti dipendenti | No |
+| dipendenti | titoli   | N:M  | N ⟷ M      | Molti dipendenti possono avere molti titoli | dipendenti_titoli |
 
 ### Organizzazione Interna
 
 | Entità A | Entità B | Tipo | Cardinalità | Chiave di Lettura | Tabella Associativa |
 | -------- | -------- | ---- | ----------- | ----------------- | ------------------- |
-| uffici   | edifici  | 1:N  | 1 ⟶ N       | Un ufficio può essere distribuito in più edifici | No |
-| ruoli    | titoli   | N:M  | N ⟷ M       | Molti ruoli possono richiedere molti titoli | ruoli_titoli |
-| reparti  | edifici  | N:M  | N ⟷ M       | Molti reparti possono essere in molti edifici | reparto_edificio |
-| reparti  | scaffali | 1:N  | 1 ⟶ N       | Un reparto contiene molti scaffali | No |
+| uffici   | edifici  | 1:N  | 1 ⟶ N      | Un ufficio può essere distribuito in più edifici | No |
+| ruoli    | titoli   | N:M  | N ⟷ M      | Molti ruoli possono richiedere molti titoli | ruoli_titoli |
+| reparti  | edifici  | N:M  | N ⟷ M      | Molti reparti possono essere in molti edifici | reparto_edificio |
+| reparti  | scaffali | 1:N  | 1 ⟶ N      | Un reparto contiene molti scaffali | No |
 
 ### Vendite
 
@@ -43,7 +45,6 @@
 | scontrini           | dettagli_scontrino  | 1:N  | 1 ⟶ N       | Uno scontrino ha molti dettagli (righe) | No |
 | dettagli_scontrino  | prodotti            | N:1  | N ⟶ 1       | Molti dettagli possono riferirsi allo stesso prodotto | No |
 | scontrini           | pagamenti           | 1:N  | 1 ⟶ N       | Uno scontrino può avere più pagamenti | No |
-| pagamenti           | casse               | N:1  | N ⟶ 1       | Molti pagamenti vengono elaborati dalla stessa cassa | No |
 | scontrini           | casse               | N:1  | N ⟶ 1       | Molti scontrini vengono emessi dalla stessa cassa | No |
 
 ### Prodotti
