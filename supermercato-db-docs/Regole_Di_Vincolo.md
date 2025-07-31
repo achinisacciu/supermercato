@@ -2,14 +2,14 @@
 
 | Numero | Regola |
 |----|--------|
-| 1 | Un produttore deve avere almeno una marca registrata |
+| 1 | Un produttore deve avere almeno una marca |
 | 2 | Una marca non deve appartenere a più di un produttore |
 | 3 | Un prodotto deve essere associato a esattamente un produttore attraverso la marca |
 | 4 | Un dipendente non può lavorare senza un titolo valido se richiesto dal suo ruolo |
-| 5 | Un produttore non deve avere marchi senza prodotti associati |
-| 6 | La categoria di un prodotto deve corrispondere esattamente alla categoria della sua marca |
+| 5 | Ogni prodotto deve essere collocato su uno scaffale solo se c'è spazio sufficiente in volume e peso |
+| 6 | Ogni scaffale deve essere assegnato a un reparto |
 | 7 | Un nuovo marchio non deve essere creato senza specificare il produttore |
-| 8 | Un produttore senza marchi attivi non deve essere mantenuto nel database |
+| 8 | Un ordine deve contenere almeno un prodotto ordinato |
 | 9 | Una carta fedeltà deve appartenere a esattamente un cliente |
 | 10 | Un cliente non deve avere più carte fedeltà |
 | 11 | Il punteggio fedeltà deve diminuire quando si applicano premi |
@@ -19,7 +19,7 @@
 | 15 | Il peso su scaffale non deve superare la capacità dello scaffale assegnato |
 | 16 | Un prodotto non alimentare non deve avere data di scadenza |
 | 17 | La quantità ordinata deve essere minore o uguale alla capacità disponibile negli scaffali |
-| 18 | I prodotti della stessa sottocategoria devono essere collocati nello stesso reparto |
+| 18 | Un ordine deve contenere almeno un prodotto ordinat |
 | 19 | Un prodotto senza movimento da 6 mesi non deve essere riordinato |
 | 20 | Il volume totale dei prodotti non deve superare la capacità disponibile |
 | 21 | Un fornitore deve offrire almeno un prodotto |
@@ -53,9 +53,3 @@
 | 49 | Un prodotto in promozione deve avere un prezzo scontato valido |
 | 50 | Le promozioni non devono essere attive oltre la loro data di fine |
 | 51 | Un ordine deve contenere almeno un prodotto ordinato |
-| 52 | Ogni prodotto in un ordine deve avere un’offerta attiva del fornitore selezionato |
-| 53 | Ogni scaffale deve essere assegnato a un reparto |
-| 54 | Ogni prodotto deve essere collocato su uno scaffale solo se c'è spazio sufficiente in volume e peso |
-
-
-
