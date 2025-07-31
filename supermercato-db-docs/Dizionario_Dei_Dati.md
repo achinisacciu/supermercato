@@ -196,6 +196,18 @@ Questo documento fornisce una descrizione dettagliata di ogni tabella e attribut
 | `id_sottocategoria` | INT          | Chiave esterna che si riferisce alla sottocategoria.| Primary Key, Foreign Key (`sottocategorie`) | 5            |
 | `data_inserimento`  | DATE         | Data in cui la preferenza è stata registrata.     |                                               | '2023-01-20' |
 
+<br>
+
+### Tabella: `clienti_titoli`
+
+**Descrizione:** Tiene traccia dei titoli che i clienti hanno conseguito viene usato per indagare sui comportamenti dei clienti.
+
+| Nome Attributo      | Tipo di Dato | Descrizione                                       | Constraint                                    | Esempio      |
+| ------------------- | ------------ | ------------------------------------------------- | --------------------------------------------- | ------------ |
+| `id_cliente_titolo` | INT          | Identificativo univoco del titolo del cliente.    | Primary Key, NOT NULL                         | 1            |
+| `id_cliente`        | INT          | Chiave esterna che si riferisce al cliente.       | Foreign Key (`clienti`)                       | 5            |
+| `id_titolo`         | INT          | Chiave esterna che si riferisce al titolo.        | Foreign Key (`titoli`)                        | 6            |
+
 ---
 
 ## Gestione Prodotti
