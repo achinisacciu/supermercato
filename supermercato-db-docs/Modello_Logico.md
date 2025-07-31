@@ -42,7 +42,7 @@ Questo documento contiene l'elenco completo delle tabelle da implementare nel da
 
 ### clienti\_preferenze (`id_cliente`, `id_sottocategoria`, `data_inserimento`)
 
-### clienti\_titotli (`id_clienti_titoli`, `id_cliente`, `id_titoli`)
+### clienti\_titoli (`id_clienti_titoli`, `id_cliente`, `id_titoli`)
 
 ---
 
