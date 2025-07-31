@@ -399,18 +399,3 @@ Questo documento fornisce una descrizione dettagliata di ogni tabella e attribut
 | id_prodotto | INT | Identificativo del prodotto in promozione | PRIMARY KEY, FOREIGN KEY |
 
 ---
-
-## Inventario e Magazzino
-
-### Tabella: inventario
-**Descrizione:** Riepiloga la quantità totale di ogni prodotto per ogni scaffale, reparto ed edificio, fungendo da vista materializzata per rapide interrogazioni sulla giacenza.
-
-| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
-|---|---|---|---|
-| id_inventario | INT | Identificativo univoco del record di inventario | PRIMARY KEY, AUTO_INCREMENT |
-| id_prodotto | INT | Identificativo del prodotto | NOT NULL, FOREIGN KEY |
-| id_scaffale | INT | Identificativo dello scaffale dove è posizionato | NOT NULL, FOREIGN KEY |
-| id_reparto | INT | Identificativo del reparto di appartenenza | NOT NULL, FOREIGN KEY |
-| id_edificio | INT | Identificativo dell'edificio dove si trova | NOT NULL, FOREIGN KEY |
-| quantita | INT | Quantità disponibile del prodotto | NOT NULL |
-| data_ultimo_aggiornamento | DATE | Data dell'ultimo aggiornamento dell'inventario | NOT NULL |
