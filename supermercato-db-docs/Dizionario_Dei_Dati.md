@@ -361,8 +361,8 @@ Questo documento fornisce una descrizione dettagliata di ogni tabella e attribut
 
 <br>
 
-### Tabella: offerte_fornitore
-**Descrizione:** Memorizza le offerte speciali sui prezzi d'acquisto proposte dai fornitori per determinati prodotti e periodi.
+### Tabella: catalogo_fornitori
+**Descrizione:** Memorizza i prezzi d'acquisto proposte dai fornitori per determinati prodotti e periodi.
 
 | Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
 |---|---|---|---|
