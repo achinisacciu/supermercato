@@ -102,11 +102,7 @@ L'entità **Pagamento** documenta le modalità di saldo delle transazioni, suppo
 | Carte di Credito | 1.5-3% | 24-48h | Alto | Autorizzazioni complesse, chargeback |
 | Digital Wallet | 0.5-1% | Immediato | Basso | Integrazione tecnologica, user experience |
 
-### Sottosistema Gestione Inventario
-
-La gestione dell'inventario rappresenta un elemento critico per l'efficienza operativa e la profittabilità dell'organizzazione.
-
-L'entità **Inventario** traccia i livelli di stock per ogni prodotto in ogni location, supportando l'ottimizzazione dei livelli di stock attraverso algoritmi di forecasting e la prevenzione sia di rotture di stock che di situazioni di overstock. La gestione automatizzata dei riordini, basata su soglie minime e massime personalizzate per ogni prodotto, permette di ottimizzare il capitale circolante mantenendo al contempo elevati livelli di servizio. Il controllo delle perdite e dello shrinkage attraverso inventari periodici e perpetui fornisce inoltre informazioni cruciali per l'identificazione di problematiche operative e la prevenzione di perdite economiche.
+<br>
 
 ## Conclusioni
 
