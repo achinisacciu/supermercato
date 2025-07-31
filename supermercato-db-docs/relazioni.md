@@ -65,7 +65,7 @@
 | fornitori         | ordini_fornitore  | 1:N  | 1 ⟶ N       | Un fornitore può ricevere molti ordini | No |
 | ordini_fornitore  | dettagli_ordine   | 1:N  | 1 ⟶ N       | Un ordine ha molti dettagli (righe) | No |
 | dettagli_ordine   | prodotti          | N:1  | N ⟶ 1       | Molti dettagli possono riferirsi allo stesso prodotto | No |
-| fornitori         | prodotti          | N:M  | N ⟷ M       | Molti fornitori possono fornire molti prodotti | offerte_fornitore |
+| fornitori         | prodotti          | N:M  | N ⟷ M       | Molti fornitori possono fornire molti prodotti | catalogo_fornitore |
 
 ### Inventario
 
