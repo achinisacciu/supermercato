@@ -14,16 +14,9 @@ La complessità di un'organizzazione commerciale moderna richiede infatti un sis
 
 Il sottosistema dedicato alla gestione del personale costituisce il fondamento operativo dell'intera organizzazione. La sua progettazione riflette la necessità di creare una struttura organizzativa chiara, efficiente e conforme alle normative vigenti.
 
-L'entità **Dipendente** rappresenta il nucleo centrale di questo sottosistema, progettata per contenere tutte le informazioni anagrafiche, contrattuali e operative necessarie per una gestione completa delle risorse umane. La tracciabilità delle operazioni eseguite da ogni dipendente risulta fondamentale non solo per questioni di sicurezza e controllo, ma anche per l'ottimizzazione dei processi operativi e la valutazione delle performance individuali. Inoltre, questa entità supporta efficacemente i processi di payroll, amministrazione del personale e controllo degli accessi ai sistemi e alle aree fisiche dell'organizzazione.
+L'entità **Dipendente** rappresenta il nucleo centrale di questo sottosistema, progettata per contenere tutte le informazioni anagrafiche, contrattuali e operative necessarie per una gestione completa delle risorse umane. La tracciabilità delle operazioni eseguite da ogni dipendente risulta fondamentale non solo per questioni di sicurezza e controllo, ma anche per l'ottimizzazione dei processi operativi e la valutazione delle performance individuali.
 
-L'entità **Ruolo** definisce con precisione le mansioni e le responsabilità all'interno dell'organizzazione, creando una struttura gerarchica e funzionale che facilita la gestione operativa quotidiana. La standardizzazione delle mansioni attraverso questa entità permette una gestione più efficace dei livelli di autorizzazione nei sistemi informativi, supporta la pianificazione strategica delle risorse umane e facilita significativamente i processi di recruiting e sviluppo delle carriere. Un cassiere avrà autorizzazioni operative limitate alla gestione delle vendite, mentre un responsabile di reparto avrà accesso a funzionalità di supervisione e un direttore disporrà di autorizzazioni manageriali complete.
-
-| Ruolo | Descrizione | Livello Autorizzazione | Area di Competenza |
-|-------|------------|----------------------|-------------------|
-| Cassiere | Gestione vendite e pagamenti | Operativo | Punto vendita |
-| Magazziniere | Gestione inventario e logistica | Operativo | Magazzino |
-| Responsabile Reparto | Supervisione area specifica | Supervisione | Reparto specifico |
-| Direttore | Gestione generale punto vendita | Manageriale | Intera struttura |
+L'entità **Ruolo** definisce con precisione le mansioni e le responsabilità all'interno dell'organizzazione, creando una struttura gerarchica e funzionale che facilita la gestione operativa quotidiana.
 
 L'entità **Titolo** gestisce le qualifiche professionali e le certificazioni richieste per specifici ruoli, garantendo la conformità alle normative professionali e di settore. Questa entità risulta particolarmente importante per la gestione delle competenze specialistiche, come le certificazioni per la manipolazione di alimenti o le qualifiche per la gestione di sostanze pericolose. La tracciabilità delle qualifiche supporta inoltre i processi di audit interni ed esterni e facilita la pianificazione della formazione continua del personale.
 
@@ -50,14 +43,6 @@ L'entità **Scaffale** gestisce la micro-localizzazione dei prodotti all'interno
 La gestione dei clienti rappresenta un elemento strategico fondamentale per il successo commerciale, richiedendo un equilibrio tra raccolta di informazioni utili e rispetto della privacy dei consumatori.
 
 L'entità **Cliente** centralizza le informazioni sui consumatori mantenendo una notevole flessibilità nei campi opzionali, riconoscendo che le informazioni disponibili possono variare significativamente in base al canale di acquisizione, alle politiche di privacy aziendali e alle preferenze individuali dei clienti. Questa flessibilità progettuale permette di gestire efficacemente sia clienti completamente profilati che clienti occasionali, supportando al contempo lo sviluppo di strategie di marketing personalizzate e l'analisi approfondita dei comportamenti d'acquisto.
-
-L'entità **Carta_Fidelity** è stata separata dall'entità cliente per gestire efficacemente i programmi di loyalty senza appesantire la struttura dati principale. Questa separazione facilita l'implementazione di logiche promozionali complesse, permette la gestione di diversi livelli di fidelizzazione e supporta lo sviluppo di partnership commerciali con altri operatori. I programmi di fidelizzazione moderni richiedono infatti una gestione sofisticata di punti, sconti, offerte personalizzate e benefici esclusivi che beneficiano di una struttura dati dedicata.
-
-| Livello Fidelity | Soglia Punti | Benefici Base | Servizi Aggiuntivi |
-|------------------|--------------|---------------|-------------------|
-| Bronze | 0-999 | Sconti base 2-5% | Newsletter informativa |
-| Silver | 1000-4999 | Sconti maggiorati 5-10% | Offerte esclusive, accesso anticipato saldi |
-| Gold | 5000+ | Sconti premium 10-15% | Servizi VIP, consulenza personalizzata |
 
 ### Sottosistema Gestione Prodotti
 
@@ -87,13 +72,15 @@ L'entità **Dettaglio_Ordine** specifica i singoli articoli richiesti per ogni o
 
 Il sottosistema transazionale rappresenta il punto di convergenza di tutti i processi aziendali, richiedendo particolare attenzione alla precisione e alla conformità normativa.
 
-L'entità **Scontrino** documenta ogni transazione di vendita, garantendo la conformità fiscale e normativa mentre supporta la tracciabilità delle vendite per analisi commerciali e la gestione di resi e garanzie. Ogni scontrino rappresenta un documento fiscale che deve mantenere la propria integrità nel tempo e supportare eventuali controlli o verifiche.
+l’entità **Documento** come base concettuale per la gestione degli atti fiscali e commerciali.
+Ogni documento contiene le informazioni comuni: identificativo, data, totale, cliente (opzionale), cassa e dipendente associato.
 
-L'entità **Dettaglio_Scontrino** registra ogni singolo articolo venduto, mantenendo il prezzo effettivo al momento della vendita e garantendo l'integrità storica dei dati anche in presenza di variazioni di listino. Questa informazione risulta cruciale per l'analisi delle vendite per prodotto, la gestione dell'inventario in tempo reale e il calcolo accurato di margini e profittabilità.
+Lo Scontrino viene considerato una specializzazione del Documento, essendo in questa fase l’unico tipo gestito. In futuro sarà possibile introdurre altre specializzazioni (fattura, nota di credito, ecc.) senza modificare radicalmente la struttura. Uno scontrino è emesso soltanto a seguito di un pagamento e ogni pagamento è legato a un solo scontrino, così come ogni scontrino ha un solo pagamento.
+
+L'entità **Dettaglio_Scontrino** registra ogni singolo articolo venduto associato ad uno scontrino, mantenendo il prezzo effettivo al momento della vendita e garantendo l'integrità storica dei dati anche in presenza di variazioni di listino. Questa informazione risulta cruciale per l'analisi delle vendite per prodotto, la gestione dell'inventario in tempo reale e il calcolo accurato di margini e profittabilità.
 
 L'entità **Cassa** gestisce i punti di incasso del punto vendita, permettendo il controllo dei flussi di cassa per postazione, la gestione delle responsabilità per operatore e l'ottimizzazione dei tempi di attesa attraverso analisi dei flussi di traffico. La tracciabilità per cassa risulta inoltre fondamentale per audit interni e controlli di conformità.
 
-L'entità **Pagamento** documenta le modalità di saldo delle transazioni, supportando la riconciliazione bancaria accurata e la gestione del rischio frodi. L'analisi delle preferenze di pagamento dei clienti fornisce inoltre informazioni preziose per l'ottimizzazione dei costi transazionali e la pianificazione degli investimenti in tecnologie di pagamento.
 
 | Metodo Pagamento | Commissioni Tipiche | Tempo Elaborazione | Livello Rischio Frodi | Note Operative |
 |------------------|--------------------|--------------------|----------------------|----------------|
@@ -111,3 +98,5 @@ La struttura database proposta garantisce una gestione completa e integrata di t
 L'architettura risultante supporta efficacemente l'implementazione di sistemi avanzati di business intelligence, piattaforme di e-commerce integrate, soluzioni di mobile commerce e strategie omnichannel sofisticate. Questa base solida posiziona l'organizzazione per competere efficacemente nel mercato retail contemporaneo, caratterizzato da una crescente digitalizzazione, aspettative dei clienti sempre più elevate e la necessità di operare con margini ottimizzati in un contesto competitivo intenso.
 
 La flessibilità intrinseca del design permette inoltre l'evoluzione graduale del sistema, supportando l'introduzione di nuove funzionalità, l'integrazione con partner esterni e l'adozione di tecnologie innovative senza richiedere ristrutturazioni radicali dell'architettura dati esistente.
+
+---
