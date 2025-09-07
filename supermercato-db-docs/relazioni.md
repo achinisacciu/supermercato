@@ -10,11 +10,10 @@
 
 ## Relazioni tra Entità
 
-### Clienti e Fidelity
+### Clienti
 
 | Entità A | Entità B        | Tipo | Cardinalità | Chiave di Lettura | Tabella Associativa |
 | -------- | --------------- | ---- | ----------- | ----------------- | ------------------- |
-| clienti  | carte_fidelity  | 1:1  | 1 ⟶ 1       | Un cliente ha una sola carta fedeltà | No |
 | clienti  | scontrini       | 1:N  | 1 ⟶ N       | Un cliente può avere molti scontrini | No |
 | clienti  | preferenze      | N:M  | N ⟷ M       | Molti clienti possono condividere molte preferenze | clienti_preferenze |
 | clienti  | titoli      | N:M  | N ⟷ M       | Molti clienti possono conseguire più titoli | clienti_titoli |
@@ -38,14 +37,14 @@
 | reparti  | edifici  | N:M  | N ⟷ M      | Molti reparti possono essere in molti edifici | reparto_edificio |
 | reparti  | scaffali | 1:N  | 1 ⟶ N      | Un reparto contiene molti scaffali | No |
 
+
 ### Vendite
 
 | Entità A            | Entità B            | Tipo | Cardinalità | Chiave di Lettura | Tabella Associativa |
 | ------------------- | ------------------- | ---- | ----------- | ----------------- | ------------------- |
-| scontrini           | dettagli_scontrino  | 1:N  | 1 ⟶ N       | Uno scontrino ha molti dettagli (righe) | No |
+| documenti           | dettagli_scontrino  | 1:N  | 1 ⟶ N       | Uno documento di tipo scontrino ha molti dettagli (righe) | No |
 | dettagli_scontrino  | prodotti            | N:1  | N ⟶ 1       | Molti dettagli possono riferirsi allo stesso prodotto | No |
-| scontrini           | pagamenti           | 1:N  | 1 ⟶ N       | Uno scontrino può avere più pagamenti | No |
-| scontrini           | casse               | N:1  | N ⟶ 1       | Molti scontrini vengono emessi dalla stessa cassa | No |
+| documenti           | casse               | N:1  | N ⟶ 1       | Molti documenti di tipo scontrino vengono emessi dalla stessa cassa | No |
 
 ### Prodotti
 
