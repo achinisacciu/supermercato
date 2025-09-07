@@ -19,7 +19,7 @@
 | 15 | Il peso su scaffale non deve superare la capacità dello scaffale assegnato |
 | 16 | Un prodotto non alimentare non deve avere data di scadenza |
 | 17 | La quantità ordinata deve essere minore o uguale alla capacità disponibile negli scaffali |
-| 18 | Un ordine deve contenere almeno un prodotto ordinat |
+| 18 | Un ordine deve contenere almeno un prodotto ordinato |
 | 19 | Un prodotto senza movimento da 6 mesi non deve essere riordinato |
 | 20 | Il volume totale dei prodotti non deve superare la capacità disponibile |
 | 21 | Un fornitore deve offrire almeno un prodotto |
@@ -52,4 +52,4 @@
 | 48 | Un prodotto non deve avere più di una promozione attiva contemporaneamente |
 | 49 | Un prodotto in promozione deve avere un prezzo scontato valido |
 | 50 | Le promozioni non devono essere attive oltre la loro data di fine |
-| 51 | Un ordine deve contenere almeno un prodotto ordinato |
+
