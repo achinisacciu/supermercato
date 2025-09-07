@@ -142,3 +142,230 @@ Questo documento fornisce una descrizione dettagliata di ogni tabella e attribut
 | data_collocazione | DATE | Data di collocazione del prodotto sullo scaffale | NOT NULL |
 
 ---
+
+## Clienti
+
+### Tabella: clienti
+**Descrizione:** Anagrafica dei clienti del supermercato.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_cliente | INT | Identificativo univoco del cliente | PRIMARY KEY, AUTO_INCREMENT |
+| nome | VARCHAR(100) | Nome del cliente | NOT NULL |
+| cognome | VARCHAR(100) | Cognome del cliente | NOT NULL |
+| data_nascita | DATE | Data di nascita del cliente | NOT NULL |
+| sesso | ENUM('M', 'F', 'Altro') | Sesso del cliente | DEFAULT NULL |
+| lavoro | VARCHAR(150) | Professione del cliente | - |
+| email | VARCHAR(150) | Indirizzo email del cliente | UNIQUE |
+| telefono | VARCHAR(20) | Numero di telefono del cliente | UNIQUE |
+| residenza | VARCHAR(255) | Indirizzo di residenza del cliente | - |
+| newsletter | TINYINT(1) | Consenso per ricevere newsletter | DEFAULT '0' |
+
+<br>
+
+### Tabella: clienti_titoli
+**Descrizione:** Tiene traccia dei titoli che i clienti hanno conseguito viene usato per indagare sui comportamenti dei clienti.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_clienti_titoli | INT | Identificativo univoco della relazione | PRIMARY KEY, AUTO_INCREMENT |
+| id_cliente | INT | Identificativo del cliente | NOT NULL, FOREIGN KEY |
+| id_titolo | INT | Identificativo del titolo posseduto | NOT NULL, FOREIGN KEY |
+
+---
+
+## Gestione Prodotti
+
+### Tabella: categorie
+**Descrizione:** Definisce le macro-categorie merceologiche dei prodotti.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_categoria | INT | Identificativo univoco della categoria | PRIMARY KEY, AUTO_INCREMENT |
+| nome_categoria | VARCHAR(100) | Nome della categoria di prodotti | NOT NULL |
+| descrizione | TEXT | Descrizione della categoria | - |
+
+<br>
+
+### Tabella: sottocategorie
+**Descrizione:** Dettaglia le categorie in sottogruppi più specifici.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_sottocategoria | INT | Identificativo univoco della sottocategoria | PRIMARY KEY, AUTO_INCREMENT |
+| nome_sottocategoria | VARCHAR(100) | Nome della sottocategoria | NOT NULL |
+| id_categoria | INT | Identificativo della categoria padre | NOT NULL, FOREIGN KEY |
+
+<br>
+
+### Tabella: prodotti
+**Descrizione:** Anagrafica di tutti i prodotti venduti nel supermercato.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_prodotto | INT | Identificativo univoco del prodotto | PRIMARY KEY, AUTO_INCREMENT |
+| nome_prodotto | VARCHAR(150) | Nome del prodotto | NOT NULL |
+| prezzo_vendita | DECIMAL(10,2) | Prezzo di vendita del prodotto | NOT NULL |
+| peso_kg | DECIMAL(6,3) | Peso del prodotto in chilogrammi | - |
+| volume_cm3 | INT | Volume del prodotto in centimetri cubi | - |
+| id_marca | INT | Identificativo della marca del prodotto | NOT NULL, FOREIGN KEY |
+| id_sottocategoria | INT | Identificativo della sottocategoria | NOT NULL, FOREIGN KEY |
+| scadenza | DATE | Data di scadenza del prodotto | - |
+| is_alimentare | TINYINT(1) | Indica se il prodotto è alimentare | DEFAULT '1' |
+
+<br>
+
+### Tabella: marche
+**Descrizione:** Elenca le marche dei prodotti.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_marca | INT | Identificativo univoco della marca | PRIMARY KEY, AUTO_INCREMENT |
+| nome_marca | VARCHAR(100) | Nome della marca | NOT NULL |
+| id_produttore | INT | Identificativo del produttore della marca | NOT NULL, FOREIGN KEY |
+
+<br>
+
+### Tabella: produttori
+**Descrizione:** Anagrafica dei produttori dei beni venduti.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_produttore | INT | Identificativo univoco del produttore | PRIMARY KEY, AUTO_INCREMENT |
+| nome_produttore | VARCHAR(100) | Nome del produttore | NOT NULL |
+| nazione | VARCHAR(50) | Nazione di origine del produttore | - |
+| sito_web | VARCHAR(150) | Sito web del produttore | - |
+| telefono | VARCHAR(20) | Numero di telefono del produttore | - |
+
+---
+
+## Vendite
+
+### Tabella: Documenti
+**Descrizione:** Registra le informazioni di testata di ogni documento emesso.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_documento | INT | Identificativo univoco dello scontrino | PRIMARY KEY, AUTO_INCREMENT |
+| tipo_documento | ENUM('Scontrino', 'Fattura') | Tipi di documenti che emette il supermercato | NOT NULL |
+| data_documento | DATE | Data di emissione dello scontrino | NOT NULL |
+| ora_documento | TIME | Ora di emissione dello scontrino | NOT NULL |
+| modalità_pagamento | ENUM('Contanti', 'Carta di Credito', 'Carta di Debito', 'Digital Wallet') | Metodo di pagamento utilizzato | NOT NULL |
+| importo | DECIMAL(10,2) | Importo del pagamento | NOT NULL |
+| id_cassa | INT | Identificativo della cassa utilizzata | NOT NULL, FOREIGN KEY |
+| id_dipendente | INT | Identificativo del dipendente che ha emesso lo scontrino | NOT NULL, FOREIGN KEY |
+| id_cliente | INT | Identificativo del cliente (opzionale) | FOREIGN KEY |
+
+<br>
+
+### Tabella: dettagli_scontrino
+**Descrizione:** Contiene le singole righe di dettaglio per ogni scontrino, con i prodotti acquistati.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_dettaglio | INT | Identificativo univoco del dettaglio | PRIMARY KEY, AUTO_INCREMENT |
+| id_documento | INT | Identificativo dello scontrino di riferimento | NOT NULL, FOREIGN KEY |
+| id_prodotto | INT | Identificativo del prodotto venduto | NOT NULL, FOREIGN KEY |
+| quantita | INT | Quantità del prodotto venduta | NOT NULL |
+| prezzo_unitario | DECIMAL(10,2) | Prezzo unitario del prodotto al momento della vendita | NOT NULL |
+| sconto_percentuale | DECIMAL(5,2) | Percentuale di sconto applicata | DEFAULT '0.00' |
+
+<br>
+
+### Tabella: casse
+**Descrizione:** Anagrafica delle casse presenti nei punti vendita.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_cassa | INT | Identificativo univoco della cassa | PRIMARY KEY, AUTO_INCREMENT |
+| numero_cassa | INT | Numero identificativo della cassa | NOT NULL |
+| tipo | ENUM('Manuale', 'Automatica') | Tipo di cassa | NOT NULL |
+| stato | ENUM('Attiva', 'In manutenzione', 'Disattivata') | Stato operativo della cassa | DEFAULT 'Attiva' |
+| id_edificio | INT | Identificativo dell'edificio dove si trova la cassa | NOT NULL, FOREIGN KEY |
+
+---
+
+## Fornitori e Approvvigionamenti
+
+### Tabella: fornitori
+**Descrizione:** Anagrafica dei fornitori di prodotti e servizi.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_fornitore | INT | Identificativo univoco del fornitore | PRIMARY KEY, AUTO_INCREMENT |
+| nome_fornitore | VARCHAR(100) | Nome del fornitore | NOT NULL |
+| partita_iva | VARCHAR(20) | Partita IVA del fornitore | NOT NULL, UNIQUE |
+| email | VARCHAR(150) | Indirizzo email del fornitore | - |
+| telefono | VARCHAR(20) | Numero di telefono del fornitore | - |
+| affidabilita | TINYINT | Indice di affidabilità del fornitore | - |
+
+<br>
+
+### Tabella: ordini_fornitore
+**Descrizione:** Registra gli ordini di acquisto inviati ai fornitori.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_ordine | INT | Identificativo univoco dell'ordine | PRIMARY KEY, AUTO_INCREMENT |
+| id_fornitore | INT | Identificativo del fornitore | NOT NULL, FOREIGN KEY |
+| data_ordine | DATE | Data di emissione dell'ordine | NOT NULL |
+| data_prevista_consegna | DATE | Data prevista per la consegna | - |
+| stato | ENUM('In attesa', 'Consegnato', 'Annullato') | Stato dell'ordine | DEFAULT 'In attesa' |
+
+<br>
+
+### Tabella: dettagli_ordine
+**Descrizione:** Contiene le righe di dettaglio di ogni ordine fornitore, con i prodotti e le quantità ordinate.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_dettaglio | INT | Identificativo univoco del dettaglio ordine | PRIMARY KEY, AUTO_INCREMENT |
+| id_ordine | INT | Identificativo dell'ordine di riferimento | NOT NULL, FOREIGN KEY |
+| id_prodotto | INT | Identificativo del prodotto ordinato | NOT NULL, FOREIGN KEY |
+| quantita | INT | Quantità del prodotto ordinata | NOT NULL |
+| prezzo_unitario | DECIMAL(10,2) | Prezzo unitario del prodotto nell'ordine | NOT NULL |
+
+<br>
+
+### Tabella: catalogo_fornitori
+**Descrizione:** Memorizza i prezzi d'acquisto proposte dai fornitori per determinati prodotti e periodi.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_fornitore | INT | Identificativo del fornitore che fa l'offerta | PRIMARY KEY, FOREIGN KEY |
+| id_prodotto | INT | Identificativo del prodotto in offerta | PRIMARY KEY, FOREIGN KEY |
+| prezzo_offerta | DECIMAL(10,2) | Prezzo scontato offerto dal fornitore | NOT NULL |
+| data_inizio | DATE | Data di inizio validità dell'offerta | NOT NULL |
+| data_fine | DATE | Data di fine validità dell'offerta | NOT NULL |
+
+---
+
+## Promozioni e Marketing
+
+### Tabella: promozioni
+**Descrizione:** Definisce le campagne promozionali applicate ai prodotti in vendita.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_promozione | INT | Identificativo univoco della promozione | PRIMARY KEY, AUTO_INCREMENT |
+| nome | VARCHAR(100) | Nome della promozione | NOT NULL |
+| descrizione | TEXT | Descrizione dettagliata della promozione | - |
+| sconto_percentuale | DECIMAL(5,2) | Percentuale di sconto della promozione | - |
+| data_inizio | DATE | Data di inizio validità della promozione | NOT NULL |
+| data_fine | DATE | Data di fine validità della promozione | NOT NULL |
+
+<br>
+
+### Tabella: promozioni_prodotti
+**Descrizione:** Tabella di collegamento che associa i prodotti specifici a una campagna promozionale (relazione N:M).
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_promozione | INT | Identificativo della promozione | PRIMARY KEY, FOREIGN KEY |
+| id_prodotto | INT | Identificativo del prodotto in promozione | PRIMARY KEY, FOREIGN KEY |
+
+---
+Perfetto 👍 Ho analizzato la documentazione che hai fornito.
+Da questa base, possiamo derivare il **modello logico relazionale** del database del supermercato.
+
+---
