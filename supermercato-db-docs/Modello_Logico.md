@@ -2,93 +2,65 @@
 
 Questo documento contiene l'elenco completo delle tabelle da implementare nel database del supermercato, con attributi dettagliati per ciascuna tabella secondo il modello logico relazionale (3NF).
 
----
 
-## Gestione Personale
+## Gestione del Personale
 
-### dipendenti (`id_dipendente`, `nome`, `cognome`, `data_nascita`, `email`, `telefono`, `data_assunzione`, `stipendio`, `id_ruolo`, `id_ufficio`)
-
-### ruoli (`id_ruolo`, `nome_ruolo`, `descrizione`, `livello_autorizzazione`)
-
-### titoli (`id_titolo`, `nome_titolo`, `ente_emittente`, `data_conseguimento`, `data_scadenza`)
-
-### uffici (`id_ufficio`, `nome_ufficio`, `piano`, `id_edificio`)
-
-### dipendenti\_titoli (`id_dipendente`, `id_titolo`)
-
-### ruoli\_titoli (`id_ruolo`, `id_titolo`)
+* **Dipendenti**(`id_dipendente` PK, nome, cognome, data\_nascita, email UNIQUE, telefono, data\_assunzione, stipendio, `id_ruolo` FK → Ruoli, `id_ufficio` FK → Uffici)
+* **Ruoli**(`id_ruolo` PK, nome\_ruolo, descrizione)
+* **Titoli**(`id_titolo` PK, nome\_titolo, ente\_emittente, data\_conseguimento, data\_scadenza, eqf)
+* **Uffici**(`id_ufficio` PK, nome\_ufficio, piano, `id_edificio` FK → Edifici)
+* **Dipendenti\_Titoli**(`id_dipendente` FK → Dipendenti, `id_titolo` FK → Titoli, PK composta)
+* **Ruoli\_Titoli**(`id_ruolo` FK → Ruoli, `id_titolo` FK → Titoli, PK composta)
 
 ---
 
 ## Infrastruttura e Localizzazione
 
-### edifici (`id_edificio`, `nome_edificio`, `indirizzo`, `superficie_mq`, `funzione_principale`)
-
-### reparti (`id_reparto`, `nome_reparto`, `descrizione`)
-
-### scaffali (`id_scaffale`, `tipo`, `capacita_peso`, `capacita_volume`, `id_reparto`)
-
-### reparto\_edificio (`id_reparto`, `id_edificio`)
-
-### prodotti\_scaffali (`id_prodotto`, `id_scaffale`, `quantita`, `data_collocazione`)
+* **Edifici**(`id_edificio` PK, nome\_edificio, indirizzo, superficie\_mq, funzione\_principale)
+* **Reparti**(`id_reparto` PK, nome\_reparto, descrizione)
+* **Scaffali**(`id_scaffale` PK, tipo, capacita\_peso, capacita\_volume, `id_reparto` FK → Reparti)
+* **Reparto\_Edificio**(`id_reparto` FK → Reparti, `id_edificio` FK → Edifici, PK composta)
+* **Prodotti\_Scaffali**(`id_prodotto` FK → Prodotti, `id_scaffale` FK → Scaffali, quantita, data\_collocazione, PK composta)
 
 ---
 
-## Clienti e Fidelizzazione
+## Clienti
 
-### clienti (`id_cliente`, `nome`, `cognome`, `data_nascita`, `email`, `telefono`, `residenza`, `newsletter`)
-
-### carte\_fidelity (`id_carta`, `id_cliente`, `data_iscrizione`, `livello`, `punti`)
-
-### clienti\_preferenze (`id_cliente`, `id_sottocategoria`, `data_inserimento`)
-
-### clienti\_titoli (`id_clienti_titoli`, `id_cliente`, `id_titoli`)
+* **Clienti**(`id_cliente` PK, nome, cognome, data\_nascita, sesso, lavoro, email UNIQUE, telefono UNIQUE, residenza, newsletter)
+* **Clienti\_Titoli**(`id_cliente` FK → Clienti, `id_titolo` FK → Titoli, PK composta)
 
 ---
 
 ## Gestione Prodotti
 
-### categorie (`id_categoria`, `nome_categoria`, `descrizione`)
-
-### sottocategorie (`id_sottocategoria`, `nome_sottocategoria`, `id_categoria`)
-
-### prodotti (`id_prodotto`, `nome_prodotto`, `prezzo_vendita`, `peso_kg`, `volume_cm3`, `id_marca`, `id_sottocategoria`, `scadenza`, `is_alimentare`)
-
-### marche (`id_marca`, `nome_marca`, `id_produttore`)
-
-### produttori (`id_produttore`, `nome_produttore`, `nazione`, `sito_web`, `telefono`)
+* **Categorie**(`id_categoria` PK, nome\_categoria, descrizione)
+* **Sottocategorie**(`id_sottocategoria` PK, nome\_sottocategoria, `id_categoria` FK → Categorie)
+* **Prodotti**(`id_prodotto` PK, nome\_prodotto, prezzo\_vendita, peso\_kg, volume\_cm3, `id_marca` FK → Marche, `id_sottocategoria` FK → Sottocategorie, scadenza, is\_alimentare)
+* **Marche**(`id_marca` PK, nome\_marca, `id_produttore` FK → Produttori)
+* **Produttori**(`id_produttore` PK, nome\_produttore, nazione, sito\_web, telefono)
 
 ---
 
-## Vendite e Scontrini
+## Vendite
 
-### scontrini (`id_scontrino`, `data_scontrino`, `ora_scontrino`, `id_cassa`, `id_dipendente`, `id_cliente`)
-
-### dettagli\_scontrino (`id_dettaglio`, `id_scontrino`, `id_prodotto`, `quantita`, `prezzo_unitario`, `sconto_percentuale`)
-
-### casse (`id_cassa`, `numero_cassa`, `tipo`, `stato`, `id_edificio`)
-
-### pagamenti (`id_pagamento`, `id_scontrino`, `metodo`, `importo`, `data_pagamento`)
+* **Documenti**(`id_documento` PK, tipo\_documento, data\_documento, ora\_documento, modalità\_pagamento, importo, `id_cassa` FK → Casse, `id_dipendente` FK → Dipendenti, `id_cliente` FK → Clienti)
+* **Dettagli\_Scontrino**(`id_dettaglio` PK, `id_documento` FK → Documenti, `id_prodotto` FK → Prodotti, quantita, prezzo\_unitario, sconto\_percentuale)
+* **Casse**(`id_cassa` PK, numero\_cassa, tipo, stato, `id_edificio` FK → Edifici)
 
 ---
 
 ## Fornitori e Approvvigionamenti
 
-### fornitori (`id_fornitore`, `nome_fornitore`, `partita_iva`, `email`, `telefono`, `affidabilita`)
-
-### ordini\_fornitore (`id_ordine`, `id_fornitore`, `data_ordine`, `data_prevista_consegna`, `stato`)
-
-### dettagli\_ordine (`id_dettaglio`, `id_ordine`, `id_prodotto`, `quantita`, `prezzo_unitario`)
-
-### offerte\_fornitore (`id_fornitore`, `id_prodotto`, `prezzo_offerta`, `data_inizio`, `data_fine`)
+* **Fornitori**(`id_fornitore` PK, nome\_fornitore, partita\_iva UNIQUE, email, telefono, affidabilita)
+* **Ordini\_Fornitore**(`id_ordine` PK, `id_fornitore` FK → Fornitori, data\_ordine, data\_prevista\_consegna, stato)
+* **Dettagli\_Ordine**(`id_dettaglio` PK, `id_ordine` FK → Ordini\_Fornitore, `id_prodotto` FK → Prodotti, quantita, prezzo\_unitario)
+* **Catalogo\_Fornitori**(`id_fornitore` FK → Fornitori, `id_prodotto` FK → Prodotti, prezzo\_offerta, data\_inizio, data\_fine, PK composta)
 
 ---
 
-## Promozioni e Marketing
+## Promozioni
 
-### promozioni (`id_promozione`, `nome`, `descrizione`, `sconto_percentuale`, `data_inizio`, `data_fine`)
-
-### promozioni\_prodotti (`id_promozione`, `id_prodotto`)
+* **Promozioni**(`id_promozione` PK, nome, descrizione, sconto\_percentuale, data\_inizio, data\_fine)
+* **Promozioni\_Prodotti**(`id_promozione` FK → Promozioni, `id_prodotto` FK → Prodotti, PK composta)
 
 ---
-
