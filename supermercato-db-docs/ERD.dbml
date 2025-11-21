@@ -1,0 +1,263 @@
+//////////////////////////////////////////////////////////////
+// Modello Logico Completo – Database Supermercato (DBML)
+//////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////
+// Gestione del Personale
+//////////////////////////////////////////////////////////////
+Table dipendenti {
+  id_dipendente int [pk, increment]
+  nome varchar(100) [not null]
+  cognome varchar(100) [not null]
+  data_nascita date [not null]
+  email varchar(150) [unique]
+  telefono varchar(20)
+  data_assunzione date [not null]
+  stipendio decimal(10,2)
+  id_ruolo int [not null, ref: > ruoli.id_ruolo]
+  id_ufficio int [not null, ref: > uffici.id_ufficio]
+}
+
+Table ruoli {
+  id_ruolo int [pk, increment]
+  nome_ruolo varchar(100) [not null]
+  descrizione text
+  livello_autorizzazione enum('Operativo','Supervisione','Manageriale') [not null]
+}
+
+Table titoli {
+  id_titolo int [pk, increment]
+  nome_titolo varchar(100) [not null]
+  ente_emittente varchar(100)
+  data_conseguimento date
+  data_scadenza date
+  eqf int
+}
+
+Table uffici {
+  id_ufficio int [pk, increment]
+  nome_ufficio varchar(100) [not null]
+  piano int
+  id_edificio int [not null, ref: > edifici.id_edificio]
+}
+
+Table dipendenti_titoli {
+  id_dipendente int [ref: > dipendenti.id_dipendente]
+  id_titolo int [ref: > titoli.id_titolo]
+  indexes {
+    (id_dipendente, id_titolo) [pk]
+  }
+}
+
+Table ruoli_titoli {
+  id_ruolo int [ref: > ruoli.id_ruolo]
+  id_titolo int [ref: > titoli.id_titolo]
+  indexes {
+    (id_ruolo, id_titolo) [pk]
+  }
+}
+
+//////////////////////////////////////////////////////////////
+// Infrastruttura e Localizzazione
+//////////////////////////////////////////////////////////////
+Table edifici {
+  id_edificio int [pk, increment]
+  nome_edificio varchar(100) [not null]
+  indirizzo varchar(255)
+  superficie_mq int
+  funzione_principale enum('Punto Vendita','Magazzino','Sede') [not null]
+}
+
+Table reparti {
+  id_reparto int [pk, increment]
+  nome_reparto varchar(100) [not null]
+  descrizione text
+}
+
+Table scaffali {
+  id_scaffale int [pk, increment]
+  tipo enum('Normale','Frigorifero','Congelatore') [not null]
+  capacita_peso decimal(10,2) [not null]
+  capacita_volume decimal(10,2) [not null]
+  id_reparto int [not null, ref: > reparti.id_reparto]
+  id_edificio int [not null, ref: > edifici.id_edificio]
+}
+
+Table reparto_edificio {
+  id_reparto int [ref: > reparti.id_reparto]
+  id_edificio int [ref: > edifici.id_edificio]
+  indexes {
+    (id_reparto, id_edificio) [pk]
+  }
+}
+
+Table giacenze {
+  id_giacenza int [pk, increment]
+  id_lotto int [not null, ref: > lotti.id_lotto]
+  id_scaffale int [not null, ref: > scaffali.id_scaffale]
+  quantita int [not null]
+  data_collocazione datetime [default: `CURRENT_TIMESTAMP`]
+}
+
+//////////////////////////////////////////////////////////////
+// Clienti
+//////////////////////////////////////////////////////////////
+Table clienti {
+  id_cliente int [pk, increment]
+  nome varchar(100) [not null]
+  cognome varchar(100) [not null]
+  data_nascita date [not null]
+  sesso enum('M','F','Altro')
+  lavoro varchar(150)
+  email varchar(150) [unique]
+  telefono varchar(20) [unique]
+  residenza varchar(255)
+  newsletter boolean [default: false]
+}
+
+Table clienti_titoli {
+  id_cliente int [ref: > clienti.id_cliente]
+  id_titolo int [ref: > titoli.id_titolo]
+  indexes {
+    (id_cliente, id_titolo) [pk]
+  }
+}
+
+//////////////////////////////////////////////////////////////
+// Gestione Prodotti
+//////////////////////////////////////////////////////////////
+Table categorie {
+  id_categoria int [pk, increment]
+  nome_categoria varchar(100) [not null]
+  descrizione text
+}
+
+Table sottocategorie {
+  id_sottocategoria int [pk, increment]
+  nome_sottocategoria varchar(100) [not null]
+  id_categoria int [not null, ref: > categorie.id_categoria]
+}
+
+Table prodotti {
+  id_prodotto int [pk, increment]
+  nome_prodotto varchar(150) [not null]
+  prezzo_vendita decimal(10,2) [not null]
+  peso_kg decimal(6,3)
+  volume_cm3 int
+  id_marca int [not null, ref: > marche.id_marca]
+  id_sottocategoria int [not null, ref: > sottocategorie.id_sottocategoria]
+  is_alimentare boolean [default: true]
+}
+
+Table lotti {
+  id_lotto int [pk, increment]
+  codice_lotto varchar(50) [not null]
+  id_prodotto int [not null, ref: > prodotti.id_prodotto]
+  data_produzione date
+  data_scadenza date
+}
+
+Table marche {
+  id_marca int [pk, increment]
+  nome_marca varchar(100) [not null]
+  id_produttore int [not null, ref: > produttori.id_produttore]
+}
+
+Table produttori {
+  id_produttore int [pk, increment]
+  nome_produttore varchar(100) [not null]
+  nazione varchar(50)
+  sito_web varchar(150)
+  telefono varchar(20)
+}
+
+//////////////////////////////////////////////////////////////
+// Vendite
+//////////////////////////////////////////////////////////////
+Table documenti {
+  id_documento int [pk, increment]
+  tipo_documento enum('Scontrino','Fattura') [not null]
+  data_documento date [not null]
+  ora_documento time [not null]
+  modalita_pagamento enum('Contanti','Carta di Credito','Carta di Debito','Digital Wallet') [not null]
+  importo decimal(10,2) [not null]
+  id_cassa int [not null, ref: > casse.id_cassa]
+  id_dipendente int [not null, ref: > dipendenti.id_dipendente]
+  id_cliente int [ref: > clienti.id_cliente]
+}
+
+Table dettagli_scontrino {
+  id_dettaglio int [pk, increment]
+  id_documento int [not null, ref: > documenti.id_documento]
+  id_prodotto int [not null, ref: > prodotti.id_prodotto]
+  quantita int [not null]
+  prezzo_unitario decimal(10,2) [not null]
+  sconto_percentuale decimal(5,2) [default: 0.00]
+}
+
+Table casse {
+  id_cassa int [pk, increment]
+  numero_cassa int [not null]
+  tipo enum('Manuale','Automatica') [not null]
+  stato enum('Attiva','In manutenzione','Disattivata') [default: 'Attiva']
+  id_edificio int [not null, ref: > edifici.id_edificio]
+}
+
+//////////////////////////////////////////////////////////////
+// Fornitori e Approvvigionamenti
+//////////////////////////////////////////////////////////////
+Table fornitori {
+  id_fornitore int [pk, increment]
+  nome_fornitore varchar(100) [not null]
+  partita_iva varchar(20) [not null, unique]
+  email varchar(150)
+  telefono varchar(20)
+  affidabilita tinyint
+}
+
+Table ordini_fornitore {
+  id_ordine int [pk, increment]
+  id_fornitore int [not null, ref: > fornitori.id_fornitore]
+  data_ordine date [not null]
+  data_prevista_consegna date
+  stato enum('In attesa','Consegnato','Annullato') [default: 'In attesa']
+}
+
+Table dettagli_ordine {
+  id_dettaglio int [pk, increment]
+  id_ordine int [not null, ref: > ordini_fornitore.id_ordine]
+  id_prodotto int [not null, ref: > prodotti.id_prodotto]
+  quantita int [not null]
+  prezzo_unitario decimal(10,2) [not null]
+}
+
+Table catalogo_fornitori {
+  id_fornitore int [ref: > fornitori.id_fornitore]
+  id_prodotto int [ref: > prodotti.id_prodotto]
+  prezzo_offerta decimal(10,2) [not null]
+  data_inizio date [not null]
+  data_fine date [not null]
+  indexes {
+    (id_fornitore, id_prodotto) [pk]
+  }
+}
+
+//////////////////////////////////////////////////////////////
+// Promozioni
+//////////////////////////////////////////////////////////////
+Table promozioni {
+  id_promozione int [pk, increment]
+  nome varchar(100) [not null]
+  descrizione text
+  sconto_percentuale decimal(5,2)
+  data_inizio date [not null]
+  data_fine date [not null]
+}
+
+Table promozioni_prodotti {
+  id_promozione int [ref: > promozioni.id_promozione]
+  id_prodotto int [ref: > prodotti.id_prodotto]
+  indexes {
+    (id_promozione, id_prodotto) [pk]
+  }
+}
