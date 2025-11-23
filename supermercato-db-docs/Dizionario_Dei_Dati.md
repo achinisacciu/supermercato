@@ -131,15 +131,16 @@ Questo documento fornisce una descrizione dettagliata di ogni tabella e attribut
 
 <br>
 
-### Tabella: prodotti_scaffali
-**Descrizione:** Tabella di collegamento che traccia la posizione e la quantità di ogni prodotto su uno specifico scaffale.
+### Tabella: giacenze
+**Descrizione:** Traccia la quantità di prodotti (riferiti a un lotto specifico) presenti su uno scaffale.
 
 | Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
 |---|---|---|---|
-| id_prodotto | INT | Identificativo del prodotto | PRIMARY KEY, FOREIGN KEY |
-| id_scaffale | INT | Identificativo dello scaffale | PRIMARY KEY, FOREIGN KEY |
+| id_giacenza | INT | Identificativo univoco della giacenza | PRIMARY KEY, AUTO_INCREMENT |
+| id_lotto | INT | Identificativo del lotto | NOT NULL, FOREIGN KEY |
+| id_scaffale | INT | Identificativo dello scaffale | NOT NULL, FOREIGN KEY |
 | quantita | INT | Quantità del prodotto presente sullo scaffale | NOT NULL |
-| data_collocazione | DATE | Data di collocazione del prodotto sullo scaffale | NOT NULL |
+| data_collocazione | DATETIME | Data e ora di collocazione | DEFAULT CURRENT_TIMESTAMP |
 
 ---
 
@@ -212,6 +213,19 @@ Questo documento fornisce una descrizione dettagliata di ogni tabella e attribut
 | id_sottocategoria | INT | Identificativo della sottocategoria | NOT NULL, FOREIGN KEY |
 | scadenza | DATE | Data di scadenza del prodotto | - |
 | is_alimentare | TINYINT(1) | Indica se il prodotto è alimentare | DEFAULT '1' |
+
+<br>
+
+### Tabella: lotti
+**Descrizione:** Gestisce i lotti di produzione dei prodotti, fondamentali per la tracciabilità e le scadenze.
+
+| Nome Attributo | Tipo di Dato | Descrizione | Constraint/Extra |
+|---|---|---|---|
+| id_lotto | INT | Identificativo univoco del lotto | PRIMARY KEY, AUTO_INCREMENT |
+| codice_lotto | VARCHAR(50) | Codice alfanumerico del lotto | NOT NULL |
+| id_prodotto | INT | Identificativo del prodotto | NOT NULL, FOREIGN KEY |
+| data_produzione | DATE | Data di produzione del lotto | - |
+| data_scadenza | DATE | Data di scadenza del lotto | - |
 
 <br>
 

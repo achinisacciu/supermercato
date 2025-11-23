@@ -20,6 +20,7 @@
 | **Edificio** | Struttura fisica (punto vendita o magazzino) che contiene reparti, uffici e scaffali. |
 | **Fornitore** | Azienda terza che approvvigiona il supermercato di prodotti; emette offerte e riceve ordini. |
 | **Giacenza** | Quantità fisica di un prodotto presente a scaffale o in magazzino al momento. |
+| **Lotto** | Insieme di unità di vendita di una derrata alimentare, prodotte, fabbricate o confezionate in circostanze praticamente identiche. |
 | **Marca** | Nome commerciale registrato da un produttore; serve a collegare prodotti al produttore e alla categoria. |
 | **Offerta Fornitore** | Prezzo e condizioni di fornitura di un prodotto proposte da un fornitore in un periodo di tempo. |
 | **Ordine Fornitore** | Documento con cui il supermercato richiede merce a un fornitore; contiene almeno un Dettaglio Ordine. |

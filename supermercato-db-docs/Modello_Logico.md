@@ -6,7 +6,7 @@ Questo documento contiene l'elenco completo delle tabelle da implementare nel da
 ## Gestione del Personale
 
 * **Dipendenti**(`id_dipendente` PK, nome, cognome, data\_nascita, email UNIQUE, telefono, data\_assunzione, stipendio, `id_ruolo` FK → Ruoli, `id_ufficio` FK → Uffici)
-* **Ruoli**(`id_ruolo` PK, nome\_ruolo, descrizione)
+* **Ruoli**(`id_ruolo` PK, nome\_ruolo, descrizione, livello\_autorizzazione)
 * **Titoli**(`id_titolo` PK, nome\_titolo, ente\_emittente, data\_conseguimento, data\_scadenza, eqf)
 * **Uffici**(`id_ufficio` PK, nome\_ufficio, piano, `id_edificio` FK → Edifici)
 * **Dipendenti\_Titoli**(`id_dipendente` FK → Dipendenti, `id_titolo` FK → Titoli, PK composta)
@@ -20,7 +20,7 @@ Questo documento contiene l'elenco completo delle tabelle da implementare nel da
 * **Reparti**(`id_reparto` PK, nome\_reparto, descrizione)
 * **Scaffali**(`id_scaffale` PK, tipo, capacita\_peso, capacita\_volume, `id_reparto` FK → Reparti)
 * **Reparto\_Edificio**(`id_reparto` FK → Reparti, `id_edificio` FK → Edifici, PK composta)
-* **Prodotti\_Scaffali**(`id_prodotto` FK → Prodotti, `id_scaffale` FK → Scaffali, quantita, data\_collocazione, PK composta)
+* **Giacenze**(`id_giacenza` PK, `id_lotto` FK → Lotti, `id_scaffale` FK → Scaffali, quantita)
 
 ---
 
@@ -36,6 +36,7 @@ Questo documento contiene l'elenco completo delle tabelle da implementare nel da
 * **Categorie**(`id_categoria` PK, nome\_categoria, descrizione)
 * **Sottocategorie**(`id_sottocategoria` PK, nome\_sottocategoria, `id_categoria` FK → Categorie)
 * **Prodotti**(`id_prodotto` PK, nome\_prodotto, prezzo\_vendita, peso\_kg, volume\_cm3, `id_marca` FK → Marche, `id_sottocategoria` FK → Sottocategorie, scadenza, is\_alimentare)
+* **Lotti**(`id_lotto` PK, `id_prodotto` FK → Prodotti, data\_produzione, data\_scadenza, codice\_lotto UNIQUE)
 * **Marche**(`id_marca` PK, nome\_marca, `id_produttore` FK → Produttori)
 * **Produttori**(`id_produttore` PK, nome\_produttore, nazione, sito\_web, telefono)
 
@@ -64,3 +65,12 @@ Questo documento contiene l'elenco completo delle tabelle da implementare nel da
 * **Promozioni\_Prodotti**(`id_promozione` FK → Promozioni, `id_prodotto` FK → Prodotti, PK composta)
 
 ---
+
+## Viste (Views)
+
+Il database include diverse viste per facilitare l'analisi dei dati, tra cui:
+* Analisi vendite (per categoria, prodotto, temporale)
+* Performance (dipendenti, fornitori, prodotti)
+* Analisi clienti (LTV, carrello medio)
+* Gestione magazzino (rotazione, stockout, utilizzo scaffali)
+

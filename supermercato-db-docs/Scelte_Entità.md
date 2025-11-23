@@ -38,6 +38,8 @@ L'entità **Reparto** organizza l'offerta commerciale per categorie merceologich
 
 L'entità **Scaffale** gestisce la micro-localizzazione dei prodotti all'interno dei reparti, includendo anche strutture specializzate come frigoriferi e celle climatizzate. Questa granularità nella localizzazione risulta fondamentale per l'ottimizzazione del picking durante le operazioni di rifornimento, la gestione efficiente degli spazi espositivi e l'implementazione di strategie avanzate di merchandising che considerano fattori come l'altezza degli occhi, la posizione rispetto ai percorsi di traffico e la vicinanza a prodotti complementari.
 
+L'entità **Giacenza** introduce un livello di dettaglio superiore rispetto alla semplice quantità per prodotto. Collegando i lotti agli scaffali, permette di sapere esattamente *quale* lotto si trova in *quale* posizione. Questo è cruciale per la gestione FIFO (First-In, First-Out) e per la rimozione mirata di lotti specifici (es. in caso di richiami o scadenze imminenti).
+
 ### Sottosistema Gestione Clienti
 
 La gestione dei clienti rappresenta un elemento strategico fondamentale per il successo commerciale, richiedendo un equilibrio tra raccolta di informazioni utili e rispetto della privacy dei consumatori.
@@ -53,6 +55,8 @@ L'entità **Categoria** fornisce la classificazione primaria dell'assortimento m
 L'entità **Sottocategoria** affina ulteriormente la classificazione merceologica, permettendo una gestione più granulare che riflette le specificità dei diversi segmenti di mercato. Questa granularità supporta analisi precise delle performance, facilita la gestione mirata delle promozioni e ottimizza il posizionamento dei prodotti nei reparti considerando fattori come stagionalità, complementarità e strategie di cross-selling.
 
 L'entità **Prodotto** rappresenta il cuore dell'offerta commerciale, contenendo tutte le informazioni tecniche, commerciali e logistiche necessarie per una gestione completa del ciclo di vita del prodotto. Ogni prodotto deve essere tracciabile per conformità normative, supportare strategie di pricing dinamico e integrarsi efficacemente con eventuali sistemi di e-commerce o mobile commerce.
+
+L'entità **Lotto** è stata introdotta per garantire la tracciabilità completa dei prodotti, specialmente quelli alimentari. Ogni lotto porta con sé informazioni vitali come la data di produzione e la data di scadenza. Questo permette al sistema di gestire avvisi preventivi per le scadenze, ottimizzare la rotazione delle scorte e garantire la sicurezza alimentare conformemente alle normative vigenti.
 
 L'entità **Marca** gestisce il brand dei prodotti, permettendo analisi dettagliate delle performance per marchio e supportando lo sviluppo di strategie commerciali differenziate. La gestione delle relazioni con i brand owner, l'ottimizzazione del mix di marca e lo sviluppo di eventuali linee private label beneficiano significativamente di questa strutturazione.
 

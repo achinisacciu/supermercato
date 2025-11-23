@@ -55,7 +55,8 @@
 | prodotti       | marche         | N:1  | N ⟶ 1       | Molti prodotti appartengono alla stessa marca | No |
 | marche         | produttori     | N:1  | N ⟶ 1       | Molte marche appartengono allo stesso produttore | No |
 | prodotti       | promozioni     | N:M  | N ⟷ M       | Molti prodotti possono avere molte promozioni | promozioni_prodotti |
-| prodotti       | scaffali       | N:M  | N ⟷ M       | Molti prodotti possono essere su molti scaffali | prodotti_scaffali |
+| prodotti       | lotti          | 1:N  | 1 ⟶ N       | Un prodotto può avere diversi lotti di produzione | No |
+| lotti          | scaffali       | N:M  | N ⟷ M       | Molti lotti possono essere distribuiti su molti scaffali | giacenze |
 
 ### Fornitori
 
