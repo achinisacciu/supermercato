@@ -52,7 +52,7 @@ def generate_unique_email(nome, cognome, existing_emails):
     email = f"{base}.{random.randint(1950, 2005)}@{random.choice(domains)}"
     return email
 
-def popola_clienti(cursor, n=1000):
+def popola_clienti(cursor, n=2000):
     print(f" >> Generazione di {n} profili clienti...")
     
     sql = """
